@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import variables from '../../../data/variables';
 
 export const Intro = styled.div`
-  padding: 8rem 0 4rem 0;
+  padding: 2rem 0 2rem 0;
   font-family: "GT-Walsheim-Pro-Regular";
 `;
 export const HeaderIntro = styled.header`
@@ -21,11 +21,14 @@ export const Title = styled.h1`
   }
 `
 export const SubTitle = styled.h3`
+  padding: 0 0 2rem 0;
+  text-align: center;
   font-size: 2rem;
   text-transform: capitalize;
   font-family: "GT-Walsheim-Pro-Bold";
-  text-decoration: underline;
 `
+// text-decoration: underline;
+
 export const Text = styled.p`
   font-size: .98rem;
   line-height: 2;
