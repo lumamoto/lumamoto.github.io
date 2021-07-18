@@ -1,51 +1,50 @@
 import React from "react"
-// import socialMedia from "../../../data/socialMedia.json"
 import data from "./../../../data/data"
+import colors from "../../../data/variables";
+
 import {
   FooterStyle,
-  FooterBody,
-  SubRight,
   CopyRight,
-//   MediaLink,
-//   FooterSocialMedia,
+  // FooterBody,
+  // SubRight,
+  // sMediaLink,
+  // sFooterSocialMedia,
 } from "./style"
-import { 
-	ContainerLayout, 
-	// ButtonDefault 
+import {
+  ContainerLayout,
+  // ButtonDefault
 } from "../../common"
+import { Mail, GitHub, Linkedin } from "react-feather"
 
 const Footer = () => {
+  const iconStyle = {
+    color: colors.primary,
+    padding: "10px",
+  }
+
   return (
     <>
       <FooterStyle>
         <ContainerLayout>
-          <FooterBody>
-            {/* <FooterSocialMedia>
-							{socialMedia.map(({ id, name, url }) => (
-								<li key={id}> 
-									<MediaLink className="lined-link" href={url} target="_blank" rel="noopener noreferrer" aria-label={`follow us on ${name}`}>
-										{name}
-									</MediaLink> 
-								</li>
-							))}
-						</FooterSocialMedia> */}
-            {/* <div>
-							<p className="text-primary quote"> Ready to take the next step and work together? </p>
-							<ButtonDefault href={`mailto:${data.SiteContact.email}`}> Contact me </ButtonDefault>
-						</div> */}
-          </FooterBody>
-          {/* <div className="box"> */}
-          <SubRight></SubRight>
+          <a style={iconStyle} href={`mailto:${data.SiteContact.email}`}>
+            <Mail />
+          </a>
+          <a style={iconStyle} href={data.SiteSocialLinks.github}>
+            <GitHub />
+          </a>
+          <a style={iconStyle} href={data.SiteSocialLinks.linkedin}>
+            <Linkedin />
+          </a>
+          
           <CopyRight className="text-dark">
             ©
             <span>
               {" "}
-              {new Date().getFullYear()}, Built with {` `}
-              <a href="https://www.gatsbyjs.org">Gatsby</a>{" "}
+              Lacey Umamoto {new Date().getFullYear()}.
+              {/* , Built with {` `}
+              <a href="https://www.gatsbyjs.org">Gatsby</a>.{" "} */}
             </span>
-            Copyright 2020 by {data.SiteAuthor}{" "}
           </CopyRight>
-          {/* </div> */}
         </ContainerLayout>
       </FooterStyle>
     </>

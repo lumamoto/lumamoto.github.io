@@ -57,7 +57,7 @@ export const SmallText = styled.small`
   }
 `
 
-export const WorkPost = styled.article`
+export const ProjectPost = styled.article`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;

@@ -3,10 +3,10 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
-import {Tag, ContainerLayout, WorkPost, Category, Intro, SubTitle, Title, Text} from "../components/common"
+import {Tag, ContainerLayout, ProjectPost, Category, Intro, SubTitle, Title, Text} from "../components/common"
 
-const WorkIndex = ({ data }) => {
-  const works = data.allMarkdownRemark.edges
+const ProjectIndex = ({ data }) => {
+  const projects = data.allMarkdownRemark.edges
 
   return (
     <>
@@ -16,14 +16,14 @@ const WorkIndex = ({ data }) => {
           <ContainerLayout>
 
             <SubTitle className="text-dark">
-              Selected Work
+              Projects
             </SubTitle>
 
             <ContainerLayout className="wrapper">
-              {works.map(({ node }) => {
+              {projects.map(({ node }) => {
               const title = node.frontmatter.title || node.fields.slug
                 return (
-                  <WorkPost key={node.fields.slug}>
+                  <ProjectPost key={node.fields.slug}>
                     <div className="media">
                       <div className="image-wrapper">
                         <Link to={node.fields.slug}>
@@ -49,7 +49,7 @@ const WorkIndex = ({ data }) => {
                           {node.frontmatter.tags.map((tag, index) => (<Tag key={index}>{tag}</Tag>))}
                         </div>
                     </div>
-                  </WorkPost>
+                  </ProjectPost>
                 )
               })}
             </ContainerLayout>
@@ -60,7 +60,7 @@ const WorkIndex = ({ data }) => {
   )
 }
 
-export default WorkIndex
+export default ProjectIndex
 
 export const pageQuery = graphql`
   query {
@@ -69,7 +69,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(works)/"}}, sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(projects)/"}}, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt

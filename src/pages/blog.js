@@ -4,7 +4,7 @@ import SEO from "../components/seo"
 import { Link, graphql } from "gatsby"
 import { Calendar, Clock } from 'react-feather'
 import Img from "gatsby-image"
-import {ContainerLayout, WorkPost, Intro, SubTitle, Title, Text, HeaderIntro, SubText, SmallText, UnderLink, ReadMore} from "../components/common"
+import {ContainerLayout, ProjectPost, Intro, SubTitle, Title, Text, HeaderIntro, SubText, SmallText, UnderLink, ReadMore} from "../components/common"
 import CategoriesTags from '../components/CategoriesTags/categoriesTags';
 import kebabCase from "lodash/kebabCase"
 
@@ -14,7 +14,7 @@ const BlogIndex = ({ data }) => {
   return (
     <>
       <Layout> 
-        <SEO title="Blog Home Page" />
+        <SEO title="Blog" />
         <Intro>
           <ContainerLayout>
 
@@ -33,7 +33,7 @@ const BlogIndex = ({ data }) => {
                 {posts.map(({ node }) => {
                 const title = node.frontmatter.title || node.fields.slug
                 return (
-                  <WorkPost key={node.fields.slug}>
+                  <ProjectPost key={node.fields.slug}>
                     <div className="media">
                       <div className="image-wrapper">
                         <Link to={node.fields.slug}>
@@ -81,7 +81,7 @@ const BlogIndex = ({ data }) => {
                         <ReadMore className="lined-link"> read more &#8594; </ReadMore>
                       </Link>
                     </div>
-                  </WorkPost>
+                  </ProjectPost>
                 )
               })}
             </ContainerLayout>

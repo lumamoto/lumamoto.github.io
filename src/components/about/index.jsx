@@ -31,9 +31,9 @@ const About = () => {
                 awesome projects. I prefer minimalistic and clean designs with
                 strong user experience.
               </Text>
-              <ResumeButton href="resume.pdf" target="_blank">
+              <ResumeButton href="Lacey-Umamoto-Resume.pdf" target="_blank">
                 {" "}
-                Download resume{" "}
+                Download Resume{" "}
               </ResumeButton>
           {/* </AboutSection> */}
         </ContainerLayout>

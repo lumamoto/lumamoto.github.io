@@ -6,7 +6,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const blogPost = path.resolve(`./src/templates/blogs/post.js`)
   const categoriesTemplate = path.resolve("src/templates/blogs/categories.js")
-  const portfolioWork = path.resolve(`./src/templates/works/work.js`)
+  const portfolioProject = path.resolve(`./src/templates/projects/project.js`)
   const blogResult = await graphql(
     `
       {
@@ -35,11 +35,11 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `
   )
-  const worksResult = await graphql(
+  const projectsResult = await graphql(
     `
       {
         allMarkdownRemark(
-          filter: {fileAbsolutePath: {regex: "/(works)/"}}
+          filter: {fileAbsolutePath: {regex: "/(projects)/"}}
           sort: { fields: [frontmatter___date], order: DESC }
           limit: 1000
         ) {
@@ -58,13 +58,13 @@ exports.createPages = async ({ graphql, actions }) => {
     `
   )
 
-  if (blogResult.errors || worksResult.errors) {
+  if (blogResult.errors || projectsResult.errors) {
     throw blogResult.errors
   }
 
   // Create blog posts pages.
   const posts = blogResult.data.blogGroup.edges
-  const works = worksResult.data.allMarkdownRemark.edges
+  const projects = projectsResult.data.allMarkdownRemark.edges
   
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
@@ -93,12 +93,12 @@ exports.createPages = async ({ graphql, actions }) => {
       })
   })
   })
-  works.forEach((work) => {
+  projects.forEach((project) => {
     createPage({
-      path: work.node.fields.slug,
-      component: portfolioWork,
+      path: project.node.fields.slug,
+      component: portfolioProject,
       context: {
-        slug: work.node.fields.slug
+        slug: project.node.fields.slug
       },
     })
   })

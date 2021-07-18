@@ -8,15 +8,15 @@ import {Intro, Title, ArticlePost, SmallText, ArticleBody} from '../../component
 import {ContainerLayout} from '../../components/common'
 
 
-const portfolioWork = ({data, pageContext, location}) => {
-  const work = data.markdownRemark
+const portfolioProject = ({data, pageContext, location}) => {
+  const project = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title={work.frontmatter.title}
-        description={work.frontmatter.description || work.excerpt}
+        title={project.frontmatter.title}
+        description={project.frontmatter.description || project.excerpt}
       />
       <Intro >
         <ContainerLayout>
@@ -24,15 +24,15 @@ const portfolioWork = ({data, pageContext, location}) => {
             <ArticlePost>
               <header>
                 <Title>
-                  {work.frontmatter.title}
+                  {project.frontmatter.title}
                 </Title>
                 <SmallText> 
                   <Calendar className="align-middle text-primary" width="18" height="18" /> 
-                  <span className="align-middle"> date published : {work.frontmatter.date} </span>
+                  <span className="align-middle"> date published : {project.frontmatter.date} </span>
                 </SmallText>
               </header>
               
-              <ArticleBody dangerouslySetInnerHTML={{ __html: work.html }} />
+              <ArticleBody dangerouslySetInnerHTML={{ __html: project.html }} />
             </ArticlePost>
           </div>
         </ContainerLayout>
@@ -41,10 +41,10 @@ const portfolioWork = ({data, pageContext, location}) => {
   )
 }
 
-export default portfolioWork;
+export default portfolioProject;
 
 export const data = graphql`
-  query portfolioWorkBySlug($slug: String!) {
+  query portfolioProjectBySlug($slug: String!) {
     site {
       siteMetadata {
         title

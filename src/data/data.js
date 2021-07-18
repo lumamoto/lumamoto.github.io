@@ -3,22 +3,22 @@ module.exports = {
   Sitelogo: '#',
   SiteLogoText: 'lumamoto',
   SiteAuthor: 'Lacey Umamoto',
-  SiteDescription: 'Front End Developer',
-  defaultDescription: 'Software engineer!', 
+  SiteDescription: 'Portfolio',
+  defaultDescription: 'Portfolio', 
   
   SiteSocialLinks: {
     github: 'https://github.com/lumamoto',
     linkedin: 'https://www.linkedin.com/in/lumamoto/',
   },
-  SiteAddress: {
-    city: 'Casablanca',
-    region: 'CurvaSud',
-    country: 'Morocco',
-    zipCode: 'ZipCode',
-  },
+  // SiteAddress: {
+  //   city: 'Casablanca',
+  //   region: 'CurvaSud',
+  //   country: 'Morocco',
+  //   zipCode: 'ZipCode',
+  // },
   SiteContact: {
     email: 'lcumamoto@gmail.com',
-    phone: 'phone number',
+    phone: '000-000-0000',
   },
   SiteCopyright: '2021',
 };

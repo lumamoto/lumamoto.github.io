@@ -6,7 +6,7 @@ import { Link } from "gatsby"
 
 const NotFoundPage = () => (
   <Layout>
-    <SEO title="404: Not found" />
+    <SEO title="404: Not Found" />
     <ContainerLayout>
       <Intro className="center">
         <svg viewBox="0 0 695 272" className="error__emoji">
