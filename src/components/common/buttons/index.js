@@ -3,7 +3,7 @@ import colors from "../../../data/variables";
 
 export const ButtonDefault = styled.a`
   cursor: pointer;
-  margin: 10% 0%;
+  margin: 2rem 0 2rem 0;
   font-family: "GT-Walsheim-Pro-Medium";
   font-size: inherit;
   text-align: center;
@@ -38,6 +38,7 @@ export const ButtonDefault = styled.a`
     left: -4px;
   }
 `;
+// margin: 10% 0%;
 
 export const ReadMore = styled.span`
   color: #000;
@@ -62,8 +63,8 @@ export const ResumeButton = styled.a`
   font-family: "GT-Walsheim-Pro-Medium";
   border: 5px solid #e8e7e7;
   display: block;
-  margin: 6rem 0 2rem 0;
-  padding: 2rem;
+  margin: 3rem 0 2rem 0;
+  padding: 1rem;
   text-align: center;
   text-transform: uppercase;
   border-radius: .5rem;

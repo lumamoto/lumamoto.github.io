@@ -131,12 +131,12 @@ export const GlobalStyle = createGlobalStyle`
   &:after {
     z-index: 1;
     position: absolute;
-    bottom: -1px;
+    bottom: -0.5px;
     left: 0;
     content: "";
     display: block;
     width: 100%;
-    height: 5px;
+    height: 4px;
     background-color: ${variables.primary};
     transform: scale(0, 1);
     transform-origin: 100% 50%;

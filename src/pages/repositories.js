@@ -1,8 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Repository from "../components/projects/github"
-import { graphql } from "gatsby"
+// import Repository from "../components/projects/github"
+// import { graphql } from "gatsby"
 import {
     RepoGrid, 
     RepoInfo, 

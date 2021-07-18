@@ -19,20 +19,20 @@ import { Mail, GitHub, Linkedin } from "react-feather"
 const Footer = () => {
   const iconStyle = {
     color: colors.primary,
-    padding: "10px",
+    padding: "12px",
   }
 
   return (
     <>
       <FooterStyle>
         <ContainerLayout>
-          <a style={iconStyle} href={`mailto:${data.SiteContact.email}`}>
+          <a className="lined-link" style={iconStyle} href={`mailto:${data.SiteContact.email}`}>
             <Mail />
           </a>
-          <a style={iconStyle} href={data.SiteSocialLinks.github}>
+          <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.github}>
             <GitHub />
           </a>
-          <a style={iconStyle} href={data.SiteSocialLinks.linkedin}>
+          <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.linkedin}>
             <Linkedin />
           </a>
           

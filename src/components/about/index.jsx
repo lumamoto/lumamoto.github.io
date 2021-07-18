@@ -1,7 +1,13 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { AboutSection, Avatar, Title, Text, SubTitle } from "./style"
-import { SectionIntro, ContainerLayout, ResumeButton } from "../common"
+import { 
+  // AboutSection, 
+  // Avatar, 
+  Title, 
+  Text, 
+  // SubTitle 
+} from "./style"
+import { SectionIntro, ContainerLayout, ResumeButton, ButtonDefault } from "../common"
 
 const About = () => {
   const data = useStaticQuery(graphql`
@@ -20,21 +26,25 @@ const About = () => {
       <SectionIntro>
         <ContainerLayout>
           {/* <AboutSection> */}
-              <Title> Hey, I’m Lacey. </Title>
-              <Text>
-                {" "}
-                I'm a digital Front End Developer hailing from{" "}
-                <b className="text-primary lined-link">North Africa</b> living
-                in Casablanca.{" "}
-
-                I love working with modern technologies, building and designing
-                awesome projects. I prefer minimalistic and clean designs with
-                strong user experience.
-              </Text>
-              <ResumeButton href="Lacey-Umamoto-Resume.pdf" target="_blank">
-                {" "}
-                Download Resume{" "}
-              </ResumeButton>
+          <Title> Hi, I’m Lacey! </Title>
+          <Text>
+            My pronouns are she/her/hers. I recently graduated from the
+            University of California, San Diego in December 2020 with a{" "}
+            <b className="text-primary lined-link">B.S. in Computer Science</b>,
+            and I am currently searching for full-time software engineering
+            opportunities. 
+            <br/><br/>
+            I have experience in web and mobile fullstack development, 
+            as well as a bit of game development. I am always eager to learn new technologies,
+            I am always working on side projects I am passionate about. As a developer, 
+            my goal is to write beautiful code and deliver beautiful products.
+          </Text>
+          {/* <ResumeButton href="Lacey-Umamoto-Resume.pdf" target="_blank">
+            Download Resume
+          </ResumeButton > */}
+          <ButtonDefault href="Lacey-Umamoto-Resume.pdf">
+            Resume
+          </ButtonDefault>
           {/* </AboutSection> */}
         </ContainerLayout>
       </SectionIntro>
