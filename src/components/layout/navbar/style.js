@@ -24,8 +24,8 @@ export const NavbarElement = styled.div`
 `
 
 export const NavbarList = styled.ul`
-  padding-left: 0;
   display: grid;
+  text-align: center;
   grid-template-columns: repeat(4, 1fr);
   list-style: none;
   > li a {

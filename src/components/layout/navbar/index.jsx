@@ -1,11 +1,11 @@
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-// import { Code } from 'react-feather'
+import { Home } from 'react-feather'
 import {
   NavbarElement, 
   NavbarList, 
-  // NavbarLogo
+  NavbarLogo
 } from './style'
 
 const Navbar = ({ siteTitle }) => (
@@ -15,7 +15,7 @@ const Navbar = ({ siteTitle }) => (
           {/* <NavbarLogo>
             <h3>
               <Link to="/">
-                <Code className="align-middle"/> 
+                <Home className="align-middle"/>{" "}
                 <span className="align-middle">
                 {siteTitle} 
                 </span>
