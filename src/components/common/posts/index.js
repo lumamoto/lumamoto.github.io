@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import variables from '../../../data/variables';
 
 export const Intro = styled.div`
-  padding: 3rem 0 2rem 0;
+  padding: 1rem 0 2rem 0;
   font-family: "GT-Walsheim-Pro-Regular";
 `;
 export const HeaderIntro = styled.header`
@@ -22,7 +22,7 @@ export const Title = styled.h1`
 `
 export const SubTitle = styled.h3`
   padding: 0 0 2rem 0;
-  text-align: center;
+  text-align: left;
   font-size: 2rem;
   text-transform: capitalize;
   font-family: "GT-Walsheim-Pro-Bold";
@@ -84,10 +84,12 @@ export const ProjectPost = styled.article`
   &:hover {
     cursor: pointer;
     > div.media > .image-wrapper > a > div {
-      transform: scale(1.2) rotate(8deg);
+      transform: scale(1.2);
     }
   }
 `
+// rotate(8deg)
+
 export const Category = styled.span`
   font-family: "GT-Walsheim-Pro-Bold";
   color: ${variables.primary};

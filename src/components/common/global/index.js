@@ -124,8 +124,6 @@ export const GlobalStyle = createGlobalStyle`
 .lined-link {
   display: inline-block;
   position: relative;
-  padding-top: .5em;
-  padding-bottom: .25em;
   transition: all .2s ease-out;
   will-change: transform, color;
   &:after {
@@ -158,3 +156,5 @@ export const GlobalStyle = createGlobalStyle`
   width: 30vw;
 }
 `
+// padding-top: .5em;
+// padding-bottom: .25em;
