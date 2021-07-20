@@ -5,5 +5,5 @@ category: bot
 tags: ['bot', 'python', 'tweepy', 'spotipy']
 image: './image.jpg'
 github: 'https://twitter.com/tunesbytwt'
-description: "Work in Progress. Tweets once a day at 12 AM PST asking for song recommendations. Twitter users can reply to the tweet with a song and artist. After 24 hours, the bot will get the reply with the most likes and add its song to a public Spotify playlist."
+description: "Tweets once a day at 12 AM PST asking for song recommendations. Twitter users can reply to the tweet with a song and artist. After 24 hours, the bot will get the reply with the most likes and add its song to a public Spotify playlist."
 ---
