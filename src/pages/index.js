@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/layout"
-// import SEO from "../components/seo"
+import SEO from "../components/seo"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 import {
@@ -16,6 +16,8 @@ import {
   ProjectGrid,
 } from "../components/common"
 import About from "../components/about"
+import { ChevronsDown } from "react-feather"
+import colors from "../data/variables";
 
 const ProjectIndex = ({ data }) => {
   const projects = data.allMarkdownRemark.edges
@@ -23,11 +25,13 @@ const ProjectIndex = ({ data }) => {
   return (
     <>
       <Layout>
-        {/* <SEO title="Home" /> */}
+        <SEO title="Lacey C. Umamoto" />
         <ContainerLayout>
           <About />
         </ContainerLayout>
-
+        <div style={{ color: colors.primary, margin: `3.5rem 0 3.5rem 0`, textAlign: "center"}}>
+          <ChevronsDown className="align-middle" />
+        </div>
         <Intro>
           <ContainerLayout>
             <BigTitle className="text-dark">Projects</BigTitle>
@@ -40,9 +44,7 @@ const ProjectIndex = ({ data }) => {
                     <ProjectPost key={node.frontmatter.github}>
                       <div className="media">
                         <div className="image-wrapper">
-                          <Link
-                            to={node.frontmatter.github}
-                          >
+                          <Link to={node.frontmatter.github}>
                             <Img
                               fluid={
                                 node.frontmatter.image.childImageSharp.fluid
@@ -127,7 +129,6 @@ export const pageQuery = graphql`
     }
   }
 `
-
 
 // query MyQuery {
 //   site {
