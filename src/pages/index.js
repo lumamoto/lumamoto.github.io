@@ -17,7 +17,6 @@ import {
 } from "../components/common"
 import About from "../components/about"
 
-
 const ProjectIndex = ({ data }) => {
   const projects = data.allMarkdownRemark.edges
 
@@ -25,19 +24,25 @@ const ProjectIndex = ({ data }) => {
     <>
       <Layout>
         {/* <SEO title="Home" /> */}
-        <About/>
+        <ContainerLayout>
+          <About />
+        </ContainerLayout>
+
         <Intro>
           <ContainerLayout>
             <BigTitle className="text-dark">Projects</BigTitle>
             <ContainerLayout className="wrapper">
               <ProjectGrid>
                 {projects.map(({ node }) => {
-                  const title = node.frontmatter.title || node.fields.slug
+                  const title = node.frontmatter.title
+                  // const title = node.frontmatter.title || node.fields.slug
                   return (
-                    <ProjectPost key={node.fields.slug}>
+                    <ProjectPost key={node.frontmatter.github}>
                       <div className="media">
                         <div className="image-wrapper">
-                          <Link to={node.frontmatter.github || node.fields.slug}>
+                          <Link
+                            to={node.frontmatter.github}
+                          >
                             <Img
                               fluid={
                                 node.frontmatter.image.childImageSharp.fluid
@@ -55,7 +60,7 @@ const ProjectIndex = ({ data }) => {
                               // className="text-primary"
                               className="text-primary lined-link"
                               style={{ boxShadow: `none` }}
-                              to={node.frontmatter.github || node.fields.slug}
+                              to={node.frontmatter.github}
                             >
                               {title}
                             </Link>
@@ -101,12 +106,14 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
-          fields {
-            slug
-          }
           frontmatter {
+            category
+            description
+            github
             date(formatString: "MMMM DD, YYYY")
             title
+            tags
+            responsibilities
             image {
               childImageSharp {
                 fluid(maxWidth: 600, quality: 100) {
@@ -114,13 +121,33 @@ export const pageQuery = graphql`
                 }
               }
             }
-            tags
-            category
-            description
-            github
           }
         }
       }
     }
   }
 `
+
+
+// query MyQuery {
+//   site {
+//     siteMetadata {
+//       title
+//     }
+//   }
+//   allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(projects)/"}}, sort: {fields: [frontmatter___date], order: DESC}) {
+//     edges {
+//       node {
+//         frontmatter {
+//           category
+//           description
+//           github
+//           date
+//           title
+//           tags
+//           responsibilities
+//         }
+//       }
+//     }
+//   }
+// }

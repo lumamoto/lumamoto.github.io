@@ -14,10 +14,10 @@ const portfolioProject = ({data, pageContext, location}) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO
+      {/* <SEO
         title={project.frontmatter.title}
         description={project.frontmatter.description || project.excerpt}
-      />
+      /> */}
       <Intro >
         <ContainerLayout>
           <div>
@@ -28,7 +28,7 @@ const portfolioProject = ({data, pageContext, location}) => {
                 </Title>
                 <SmallText> 
                   <Calendar className="align-middle text-primary" width="18" height="18" /> 
-                  <span className="align-middle"> date published : {project.frontmatter.date} </span>
+                  {/* <span className="align-middle"> date published : {project.frontmatter.date} </span> */}
                 </SmallText>
               </header>
               
@@ -44,24 +44,48 @@ const portfolioProject = ({data, pageContext, location}) => {
 export default portfolioProject;
 
 export const data = graphql`
-  query portfolioProjectBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-      }
+query MyQuery {
+  site {
+    siteMetadata {
+      title
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt
-      rawMarkdownBody
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description,
-        time,
-
+  }
+  allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(projects)/"}}, sort: {fields: [frontmatter___date], order: DESC}) {
+    edges {
+      node {
+        frontmatter {
+          category
+          description
+          github
+          date
+          title
+          tags
+          responsibilities
+        }
       }
     }
   }
+}
 `
+
+//   query portfolioProjectBySlug($slug: String!) {
+//     site {
+//       siteMetadata {
+//         title
+//       }
+//     }
+//     markdownRemark(fields: { slug: { eq: $slug } }) {
+//       id
+//       excerpt
+//       rawMarkdownBody
+//       html
+//       frontmatter {
+//         title
+//         date(formatString: "MMMM DD, YYYY")
+//         description,
+//         time,
+
+//       }
+//     }
+//   }
+// `
