@@ -9,6 +9,7 @@ module.exports = {
   SiteSocialLinks: {
     github: 'https://github.com/lumamoto',
     linkedin: 'https://www.linkedin.com/in/lumamoto/',
+    devpost: 'https://devpost.com/lumamoto'
   },
   // SiteAddress: {
   //   city: 'Casablanca',
