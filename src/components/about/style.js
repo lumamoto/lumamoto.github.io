@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import variables from '../../data/variables';
 
 export const AboutSection = styled.section`
+  position: relative;
   text-align: center;
   @media only screen and (min-width: ${variables.breakpointLarge}) {
     display: grid;
