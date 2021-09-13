@@ -1,6 +1,7 @@
 import Img from "gatsby-image"
 import styled from 'styled-components';
 import variables from '../../data/variables';
+import colors from "../../data/variables";
 
 export const AboutSection = styled.section`
   position: relative;
@@ -25,6 +26,7 @@ export const Title = styled.h1`
     font-size: 2rem;
   }
 `
+
 export const Text = styled.p`
   font-size: 1.2rem;
   line-height: 2;
@@ -45,3 +47,14 @@ export const SubTitle = styled.h2`
     font-size: 1.8em;
   }
 `
+
+export const InlineColorText = styled.span`
+  color: ${colors.primary}
+`
+// background: linear-gradient(90deg, #0e3735, #85CDC8);
+// background-clip: text;
+// -webkit-background-clip: text;
+// -moz-background-clip: text;
+// -moz-text-fill-color: transparent;
+// -webkit-text-fill-color: transparent;
+// display: inline-block
