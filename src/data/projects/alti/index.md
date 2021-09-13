@@ -1,5 +1,6 @@
 ---
 title: Alti Slack App
+order: 2
 date: "2020-08-25T22:40:32.169Z"
 category: slack app
 tags: ['javascript', 'slack api', 'firebase', 'google cloud', 'mocha']

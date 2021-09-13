@@ -1,5 +1,6 @@
 ---
 title: Crypto Discord Bot
+order: 4
 date: "2021-06-03T22:40:32.169Z"
 category: bot
 tags: ['python', 'discord.py', 'alpha vantage api']

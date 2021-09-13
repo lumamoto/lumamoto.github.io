@@ -28,12 +28,13 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/(projects)/" } }
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { fields: [frontmatter___order], order: ASC } 
     ) {
       edges {
         node {
           excerpt
           frontmatter {
+            order
             category
             description
             github
