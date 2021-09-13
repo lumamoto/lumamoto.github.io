@@ -1,15 +1,12 @@
 import React from "react"
-// import { Title, Text } from "./style"
 
-import { Link, graphql } from "gatsby"
+import { Link } from "gatsby"
 import Img from "gatsby-image"
 import {
   Tag,
   ContainerLayout,
   ProjectPost,
   Category,
-  Intro,
-  // SubTitle,
   Title,
   BigTitle,
   Text,

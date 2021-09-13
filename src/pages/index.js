@@ -1,30 +1,19 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { ChevronsDown } from "react-feather"
-import colors from "../data/variables"
 
 import About from "../components/about"
 import Projects from "../components/projects"
 
 const Index = ({ data }) => {
   return (
-    <>
-      <Layout>
-        <SEO title="Lacey C. Umamoto" />
+    <Layout>
+      <SEO title="Lacey C. Umamoto" />
+      <div style={{ height: "100vh", display: "table" }}>
         <About />
-        <div
-          style={{
-            color: colors.primary,
-            margin: `3.5rem 0 3.5rem 0`,
-            textAlign: "center",
-          }}
-        >
-          <ChevronsDown className="align-middle" />
-        </div>
-        <Projects data={data}/>
-      </Layout>
-    </>
+      </div>
+      <Projects data={data} />
+    </Layout>
   )
 }
 
