@@ -1,6 +1,6 @@
 import React from "react"
 // import { useStaticQuery, graphql } from "gatsby"
-import { Title, Text, InlineColorText } from "./style"
+import { Title, Text } from "./style"
 import { ContainerLayout, ButtonDefault } from "../common"
 
 import { ChevronsDown } from "react-feather"
@@ -10,7 +10,9 @@ const About = () => {
   return (
     <div style={{ display: "table-cell", verticalAlign: "middle" }}>
       <ContainerLayout>
-        <Title>Hi, I’m Lacey! 💫</Title>
+        <Title>Hi, I’m Lacey!{" "}
+          <span role="img" aria-label="star">💫</span>
+        </Title>
         <Text>
           My pronouns are she/her/hers. I recently graduated from the University
           of California, San Diego in December 2020 with a{" "}
