@@ -13,6 +13,7 @@ const About = () => {
         <Title>Hi, I’m Lacey!{" "}
           <span role="img" aria-label="star">💫</span>
         </Title>
+        <p>馬本</p>
         <Text>
           My pronouns are she/her/hers. I recently graduated from the University
           of California, San Diego in December 2020 with a{" "}
