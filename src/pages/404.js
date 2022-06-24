@@ -1,12 +1,10 @@
 import React from "react"
 import Layout from "../components/layout"
-// import SEO from "../components/seo"
 import { ContainerLayout, Title, Intro, SubText } from "../components/common"
 import { Link } from "gatsby"
 
 const NotFoundPage = () => (
   <Layout>
-    {/* <SEO title="404: Not Found" /> */}
     <ContainerLayout>
       <Intro className="center">
         <Title>404</Title>

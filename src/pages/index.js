@@ -1,15 +1,22 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 
 import About from "../components/about"
 import Projects from "../components/projects"
 
 const Index = ({ data }) => {
+  // const projectsRef = useRef(null);
+
+  // const scrollEffect = ( targetRef ) =>{
+  //   targetRef.current.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'start',
+  //   });
+  // }
+
   return (
     <Layout>
-      <SEO title="Lacey C. Umamoto" />
       <div style={{ height: "100vh", display: "table" }}>
         <About />
       </div>
@@ -29,7 +36,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/(projects)/" } }
-      sort: { fields: [frontmatter___order], order: ASC } 
+      sort: { fields: [frontmatter___order], order: ASC }
     ) {
       edges {
         node {

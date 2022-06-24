@@ -1,6 +1,4 @@
 import React from "react"
-
-import { Link } from "gatsby"
 import Img from "gatsby-image"
 import {
   Tag,
@@ -27,26 +25,26 @@ const Projects = ({ data }) => {
             <ProjectPost key={node.frontmatter.github}>
               <div className="media">
                 <div className="image-wrapper">
-                  <Link to={node.frontmatter.github}>
+                  <a href={node.frontmatter.github}>
                     <Img
                       fluid={node.frontmatter.image.childImageSharp.fluid}
                       // title="work title"
                     />
-                  </Link>
+                  </a>
                 </div>
               </div>
               <div className="content">
                 <header>
                   <Category>{node.frontmatter.category}</Category>
                   <Title className="text-primary">
-                    <Link
+                    <a
                       // className="text-primary"
                       className="text-primary lined-link"
                       style={{ boxShadow: `none` }}
-                      to={node.frontmatter.github}
+                      href={node.frontmatter.github}
                     >
                       {title}
-                    </Link>
+                    </a>
                   </Title>
                 </header>
                 <Text

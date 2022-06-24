@@ -1,27 +1,28 @@
 import React from "react"
-// import { useStaticQuery, graphql } from "gatsby"
 import { Title, Text } from "./style"
 import { ContainerLayout, ButtonDefault } from "../common"
 
 import { ChevronsDown } from "react-feather"
 import colors from "../../data/variables"
 
-const greetings = ["Yo", "Hi", "Hey", "Howdy", "Hello", "Hiya"]
-let greeting = greetings[Math.floor(Math.random() * greetings.length)]
+const greetings = ["Hi", "Hey", "Howdy", "Hello", "Hiya"]
+const greeting = greetings[Math.floor(Math.random() * greetings.length)]
+
+const emojis = ["✨", "💫", "🌈", "☀️", "🌱"]
+const emoji = emojis[Math.floor(Math.random() * emojis.length)]
 
 const About = () => {
   return (
     <div style={{ display: "table-cell", verticalAlign: "middle" }}>
       <ContainerLayout>
         <Title>
-          {greeting}, I’m Lacey!
-          <span role="img" aria-label="Dizzy Star">
-            💫
+          {greeting}, I’m Lacey!{" "}
+          <span role="img">
+            {emoji}
           </span>
         </Title>
         <Text>
-          My pronouns are she/they. I am currently working as a Software
-          Engineer at{" "}
+          My pronouns are <i>she/they</i>. I am currently working as a Software Engineer at{" "}
           <a href="https://arete.com">
             <b className="text-primary lined-link">Areté</b>
           </a>
@@ -42,11 +43,14 @@ const About = () => {
       <div
         style={{
           color: colors.primary,
-          margin: `3.5rem 0 3.5rem 0`,
+          margin: `5rem 0 0 0`,
           textAlign: "center",
         }}
       >
-        <ChevronsDown className="align-middle" />
+        <ChevronsDown
+          // onClick = {() =>scrollEffect(projectsRef)}
+          className="align-middle"
+        />
       </div>
     </div>
   )

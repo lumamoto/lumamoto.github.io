@@ -6,7 +6,6 @@
 // import CategoriesTags from '../../components/CategoriesTags/categoriesTags';
 // import {ContainerLayout, ProjectPost, Intro, SubTitle, Title, Text, HeaderIntro, SubText, SmallText, UnderLink, ReadMore} from "../../components/common"
 // import Layout from "../../components/layout"
-// import SEO from "../../components/seo"
 
 // const Categories = ({ data }) => {
 //   const { edges} = data.allMarkdownRemark
@@ -16,7 +15,6 @@
 
 //   return (
 //     <Layout> 
-//       <SEO title="Blog" />
 //       <Intro>
 //         <ContainerLayout>
 
