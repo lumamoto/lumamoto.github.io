@@ -134,11 +134,13 @@ var convertProps = function convertProps(props) {
 
   if (resolutions) {
     convertedProps.fixed = resolutions;
+    logDeprecationNotice("resolutions", "the gatsby-image v2 prop \"fixed\"");
     delete convertedProps.resolutions;
   }
 
   if (sizes) {
     convertedProps.fluid = sizes;
+    logDeprecationNotice("sizes", "the gatsby-image v2 prop \"fluid\"");
     delete convertedProps.sizes;
   }
 
@@ -186,15 +188,15 @@ var matchesMedia = function matchesMedia(_ref) {
  * Find the source of an image to use as a key in the image cache.
  * Use `the first image in either `fixed` or `fluid`
  * @param {{fluid: {src: string, media?: string}[], fixed: {src: string, media?: string}[]}} args
- * @return {string}
+ * @return {string?} Returns image src or undefined it not given.
  */
 
 
-var getImageSrcKey = function getImageSrcKey(_ref2) {
+var getImageCacheKey = function getImageCacheKey(_ref2) {
   var fluid = _ref2.fluid,
       fixed = _ref2.fixed;
-  var data = fluid ? getCurrentSrcData(fluid) : getCurrentSrcData(fixed);
-  return data.src;
+  var srcData = getCurrentSrcData(fluid || fixed || []);
+  return srcData && srcData.src;
 };
 /**
  * Returns the current src - Preferably with art-direction support.
@@ -231,17 +233,18 @@ var getCurrentSrcData = function getCurrentSrcData(currentData) {
 var imageCache = Object.create({});
 
 var inImageCache = function inImageCache(props) {
-  var convertedProps = convertProps(props); // Find src
-
-  var src = getImageSrcKey(convertedProps);
-  return imageCache[src] || false;
+  var convertedProps = convertProps(props);
+  var cacheKey = getImageCacheKey(convertedProps);
+  return imageCache[cacheKey] || false;
 };
 
 var activateCacheForImage = function activateCacheForImage(props) {
-  var convertedProps = convertProps(props); // Find src
+  var convertedProps = convertProps(props);
+  var cacheKey = getImageCacheKey(convertedProps);
 
-  var src = getImageSrcKey(convertedProps);
-  imageCache[src] = true;
+  if (cacheKey) {
+    imageCache[cacheKey] = true;
+  }
 }; // Native lazy-loading support: https://addyosmani.com/blog/lazy-loading/
 
 
@@ -287,7 +290,7 @@ function generateImageSources(imageVariants) {
       media: media,
       srcSet: srcSetWebp,
       sizes: sizes
-    }), /*#__PURE__*/_react.default.createElement("source", {
+    }), srcSet && /*#__PURE__*/_react.default.createElement("source", {
       media: media,
       srcSet: srcSet,
       sizes: sizes
@@ -466,7 +469,8 @@ var Image = /*#__PURE__*/function (_React$Component) {
       isVisible: isVisible,
       imgLoaded: false,
       imgCached: false,
-      fadeIn: !_this.seenBefore && props.fadeIn
+      fadeIn: !_this.seenBefore && props.fadeIn,
+      isHydrated: false
     };
     _this.imageRef = /*#__PURE__*/_react.default.createRef();
     _this.placeholderRef = props.placeholderRef || /*#__PURE__*/_react.default.createRef();
@@ -478,6 +482,10 @@ var Image = /*#__PURE__*/function (_React$Component) {
   var _proto = Image.prototype;
 
   _proto.componentDidMount = function componentDidMount() {
+    this.setState({
+      isHydrated: isBrowser
+    });
+
     if (this.state.isVisible && typeof this.props.onStartLoad === "function") {
       this.props.onStartLoad({
         wasCached: inImageCache(this.props)
@@ -565,6 +573,12 @@ var Image = /*#__PURE__*/function (_React$Component) {
         loading = _convertProps.loading,
         draggable = _convertProps.draggable;
 
+    var imageVariants = fluid || fixed; // Abort early if missing image data (#25371)
+
+    if (!imageVariants) {
+      return null;
+    }
+
     var shouldReveal = this.state.fadeIn === false || this.state.imgLoaded;
     var shouldFadeIn = this.state.fadeIn === true && !this.state.imgCached;
     var imageStyle = (0, _extends2.default)({
@@ -584,11 +598,13 @@ var Image = /*#__PURE__*/function (_React$Component) {
       style: imagePlaceholderStyle,
       className: placeholderClassName,
       itemProp: itemProp
-    };
+    }; // Initial client render state needs to match SSR until hydration finishes.
+    // Once hydration completes, render again to update to the correct image.
+    // `imageVariants` is always an Array type at this point due to `convertProps()`
+
+    var image = !this.state.isHydrated ? imageVariants[0] : getCurrentSrcData(imageVariants);
 
     if (fluid) {
-      var imageVariants = fluid;
-      var image = getCurrentSrcData(fluid);
       return /*#__PURE__*/_react.default.createElement(Tag, {
         className: (className ? className : "") + " gatsby-image-wrapper",
         style: (0, _extends2.default)({
@@ -659,16 +675,12 @@ var Image = /*#__PURE__*/function (_React$Component) {
     }
 
     if (fixed) {
-      var _imageVariants = fixed;
-
-      var _image = getCurrentSrcData(fixed);
-
       var divStyle = (0, _extends2.default)({
         position: "relative",
         overflow: "hidden",
         display: "inline-block",
-        width: _image.width,
-        height: _image.height
+        width: image.width,
+        height: image.height
       }, style);
 
       if (style.display === "inherit") {
@@ -679,39 +691,39 @@ var Image = /*#__PURE__*/function (_React$Component) {
         className: (className ? className : "") + " gatsby-image-wrapper",
         style: divStyle,
         ref: this.handleRef,
-        key: "fixed-" + JSON.stringify(_image.srcSet)
+        key: "fixed-" + JSON.stringify(image.srcSet)
       }, bgColor && /*#__PURE__*/_react.default.createElement(Tag, {
         "aria-hidden": true,
         title: title,
         style: (0, _extends2.default)({
           backgroundColor: bgColor,
-          width: _image.width,
+          width: image.width,
           opacity: !this.state.imgLoaded ? 1 : 0,
-          height: _image.height
+          height: image.height
         }, shouldFadeIn && delayHideStyle)
-      }), _image.base64 && /*#__PURE__*/_react.default.createElement(Placeholder, {
+      }), image.base64 && /*#__PURE__*/_react.default.createElement(Placeholder, {
         ariaHidden: true,
         ref: this.placeholderRef,
-        src: _image.base64,
+        src: image.base64,
         spreadProps: placeholderImageProps,
-        imageVariants: _imageVariants,
+        imageVariants: imageVariants,
         generateSources: generateBase64Sources
-      }), _image.tracedSVG && /*#__PURE__*/_react.default.createElement(Placeholder, {
+      }), image.tracedSVG && /*#__PURE__*/_react.default.createElement(Placeholder, {
         ariaHidden: true,
         ref: this.placeholderRef,
-        src: _image.tracedSVG,
+        src: image.tracedSVG,
         spreadProps: placeholderImageProps,
-        imageVariants: _imageVariants,
+        imageVariants: imageVariants,
         generateSources: generateTracedSVGSources
-      }), this.state.isVisible && /*#__PURE__*/_react.default.createElement("picture", null, generateImageSources(_imageVariants), /*#__PURE__*/_react.default.createElement(Img, {
+      }), this.state.isVisible && /*#__PURE__*/_react.default.createElement("picture", null, generateImageSources(imageVariants), /*#__PURE__*/_react.default.createElement(Img, {
         alt: alt,
         title: title,
-        width: _image.width,
-        height: _image.height,
-        sizes: _image.sizes,
-        src: _image.src,
+        width: image.width,
+        height: image.height,
+        sizes: image.sizes,
+        src: image.src,
         crossOrigin: this.props.crossOrigin,
-        srcSet: _image.srcSet,
+        srcSet: image.srcSet,
         style: imageStyle,
         ref: this.imageRef,
         onLoad: this.handleImageLoaded,
@@ -725,8 +737,8 @@ var Image = /*#__PURE__*/function (_React$Component) {
             alt: alt,
             title: title,
             loading: loading
-          }, _image, {
-            imageVariants: _imageVariants
+          }, image, {
+            imageVariants: imageVariants
           }))
         }
       }));
@@ -772,7 +784,19 @@ var fluidObject = _propTypes.default.shape({
   media: _propTypes.default.string,
   maxWidth: _propTypes.default.number,
   maxHeight: _propTypes.default.number
-}); // If you modify these propTypes, please don't forget to update following files as well:
+});
+
+function requireFixedOrFluid(originalPropTypes) {
+  return function (props, propName, componentName) {
+    var _PropTypes$checkPropT;
+
+    if (!props.fixed && !props.fluid) {
+      throw new Error("The prop `fluid` or `fixed` is marked as required in `" + componentName + "`, but their values are both `undefined`.");
+    }
+
+    _propTypes.default.checkPropTypes((_PropTypes$checkPropT = {}, _PropTypes$checkPropT[propName] = originalPropTypes, _PropTypes$checkPropT), props, "prop", componentName);
+  };
+} // If you modify these propTypes, please don't forget to update following files as well:
 // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-image/index.d.ts
 // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-image/README.md#gatsby-image-props
 // https://github.com/gatsbyjs/gatsby/blob/master/docs/docs/gatsby-image.md#gatsby-image-props
@@ -781,8 +805,8 @@ var fluidObject = _propTypes.default.shape({
 Image.propTypes = {
   resolutions: fixedObject,
   sizes: fluidObject,
-  fixed: _propTypes.default.oneOfType([fixedObject, _propTypes.default.arrayOf(fixedObject)]),
-  fluid: _propTypes.default.oneOfType([fluidObject, _propTypes.default.arrayOf(fluidObject)]),
+  fixed: requireFixedOrFluid(_propTypes.default.oneOfType([fixedObject, _propTypes.default.arrayOf(fixedObject)])),
+  fluid: requireFixedOrFluid(_propTypes.default.oneOfType([fluidObject, _propTypes.default.arrayOf(fluidObject)])),
   fadeIn: _propTypes.default.bool,
   durationFadeIn: _propTypes.default.number,
   title: _propTypes.default.string,
@@ -1744,160 +1768,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const GlobalStyle = styled_components__WEBPACK_IMPORTED_MODULE_2__.createGlobalStyle`
-  // normalize
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  html {
-    box-sizing: border-box;
-    -ms-overflow-style: scrollbar;
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-    body {
-      font-size: 14px;
-      font-family: 'GT-Walsheim-Pro-Regular';
-      margin: 0;
-    }
-    main {
-      display: block;
-    }
-    h1 {
-      font-size: 2em;
-      margin: 0.67em 0;
-    }
-    hr {
-      box-sizing: content-box; /* 1 */
-      height: 0; /* 1 */
-      overflow: visible; /* 2 */
-    }
-    a {
-      background-color: transparent;
-      text-decoration: none;
-    }
-    b,
-    strong {
-      font-weight: bolder;
-      font-family: 'GT-Walsheim-Pro-Bold';
-    }
-    small {
-      font-size: 80%;
-    }
-    sub,
-    sup {
-      font-size: 75%;
-      line-height: 0;
-      position: relative;
-      vertical-align: baseline;
-    }
-    sub {
-      bottom: -0.25em;
-    }
-    sup {
-      top: -0.5em;
-    }
-    img {
-      border-style: none;
-    }
-    .center {
-      text-align: center;
-    }
-    button,
-    input,
-    optgroup,
-    select,
-    textarea {
-      font-family: inherit; /* 1 */
-      font-size: 100%; /* 1 */
-      line-height: 1.15; /* 1 */
-      margin: 0; /* 2 */
-    }
-    button,
-    input { /* 1 */
-      overflow: visible;
-    }
-    button,
-    select { /* 1 */
-      text-transform: none;
-    }
-    button,
-    [type="button"],
-    [type="reset"],
-    [type="submit"] {
-      -webkit-appearance: button;
-    }
-    button::-moz-focus-inner,
-    [type="button"]::-moz-focus-inner,
-    [type="reset"]::-moz-focus-inner,
-    [type="submit"]::-moz-focus-inner {
-      border-style: none;
-      padding: 0;
-    }
-    button:-moz-focusring,
-    [type="button"]:-moz-focusring,
-    [type="reset"]:-moz-focusring,
-    [type="submit"]:-moz-focusring {
-      outline: 1px dotted ButtonText;
-    }
-    [hidden] {
-      display: none;
-    }
-    
-    .text-dark {
-      color: ${_data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].black};
-    }
-    .text-primary {
-      color: ${_data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary};
-    }
-    .align-middle {
-      vertical-align: middle;
-    }
-
-    p {
-      font-size: 1.125rem;
-      font-weight: 200;
-      line-height: 1.8;
-    }
-  }
-
-  
-.lined-link {
-  display: inline-block;
-  position: relative;
-  transition: all .2s ease-out;
-  will-change: transform, color;
-  &:after {
-    z-index: 1;
-    position: absolute;
-    bottom: -0.5px;
-    left: 0;
-    content: "";
-    display: block;
-    width: 100%;
-    height: 4px;
-    background-color: ${_data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary};
-    transform: scale(0, 1);
-    transform-origin: 100% 50%;
-    will-change: transform;
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), 
-    -webkit-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  &:hover:after,
-  &.active:after {
-    background-color: ${_data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary};
-    transform: scale(1);
-    transform-origin: 0 50%;
-    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), background-color 0.2s ease-out, 
-    -webkit-transform 1s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-}
-
-.error__emoji {
-  width: 30vw;
-}
-`; // padding-top: .5em;
+const GlobalStyle = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__.createGlobalStyle)(["*,*::before,*::after{box-sizing:border-box;}html{box-sizing:border-box;-ms-overflow-style:scrollbar;line-height:1.15;-webkit-text-size-adjust:100%;body{font-size:14px;font-family:'GT-Walsheim-Pro-Regular';margin:0;}main{display:block;}h1{font-size:2em;margin:0.67em 0;}hr{box-sizing:content-box;height:0;overflow:visible;}a{background-color:transparent;text-decoration:none;}b,strong{font-weight:bolder;font-family:'GT-Walsheim-Pro-Bold';}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sub{bottom:-0.25em;}sup{top:-0.5em;}img{border-style:none;}.center{text-align:center;}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0;}button,input{overflow:visible;}button,select{text-transform:none;}button,[type=\"button\"],[type=\"reset\"],[type=\"submit\"]{-webkit-appearance:button;}button::-moz-focus-inner,[type=\"button\"]::-moz-focus-inner,[type=\"reset\"]::-moz-focus-inner,[type=\"submit\"]::-moz-focus-inner{border-style:none;padding:0;}button:-moz-focusring,[type=\"button\"]:-moz-focusring,[type=\"reset\"]:-moz-focusring,[type=\"submit\"]:-moz-focusring{outline:1px dotted ButtonText;}[hidden]{display:none;}.text-dark{color:", ";}.text-primary{color:", ";}.align-middle{vertical-align:middle;}p{font-size:1.125rem;font-weight:200;line-height:1.8;}}.lined-link{display:inline-block;position:relative;transition:all .2s ease-out;will-change:transform,color;&:after{z-index:1;position:absolute;bottom:-0.5px;left:0;content:\"\";display:block;width:100%;height:4px;background-color:", ";transform:scale(0,1);transform-origin:100% 50%;will-change:transform;transition:transform 0.8s cubic-bezier(0.19,1,0.22,1),-webkit-transform 0.8s cubic-bezier(0.19,1,0.22,1);}&:hover:after,&.active:after{background-color:", ";transform:scale(1);transform-origin:0 50%;transition:transform 1s cubic-bezier(0.19,1,0.22,1),background-color 0.2s ease-out,-webkit-transform 1s cubic-bezier(0.19,1,0.22,1);}}.error__emoji{width:30vw;}"], _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].black, _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary, _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary, _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].primary); // padding-top: .5em;
 // padding-bottom: .25em;
 
 /***/ }),
@@ -2208,10 +2079,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./footer */ "./src/components/layout/footer/index.jsx");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common */ "./src/components/common/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer */ "./src/components/layout/footer/index.jsx");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common */ "./src/components/common/index.js");
 
  // import { useStaticQuery, graphql } from "gatsby"
 // import Navbar from "./navbar"
@@ -2231,11 +2102,11 @@ const Layout = ({
   //     }
   //   }
   // `)
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_3__.GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_3__.MainContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_3__.ContainerLayout, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_3__.ContainerLayout, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, children))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_footer__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_2__.GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_2__.MainContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_2__.ContainerLayout, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_common__WEBPACK_IMPORTED_MODULE_2__.ContainerLayout, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, children))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_footer__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 
 Layout.propTypes = {
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().node.isRequired)
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node.isRequired)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Layout);
 

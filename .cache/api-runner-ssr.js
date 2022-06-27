@@ -5,7 +5,7 @@ var plugins = [{
     },{
       name: 'gatsby-plugin-styled-components',
       plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-styled-components/gatsby-ssr.js'),
-      options: {"plugins":[]},
+      options: {"plugins":[],"displayName":true,"fileName":true,"minify":true,"namespace":"","transpileTemplateLiterals":true,"pure":false},
     },{
       name: 'gatsby-plugin-image',
       plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-image/gatsby-ssr.js'),
