@@ -1,8 +1,6 @@
 import React from "react"
 import data from "./../../../data/data"
-import colors from "../../../data/variables"
-import { ReactComponent as Devpost } from "../../../assets/svg/devpost.svg"
-
+import colors from "../../../data/variables";
 // import { StaticImage } from "gatsby-plugin-image"
 import {
   FooterStyle,
@@ -34,19 +32,6 @@ const Footer = () => {
           <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.github}>
             <GitHub />
           </a>
-          <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.devpost}>
-            <Devpost />
-          </a>
-          
-          {/* <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.devpost}>
-          <StaticImage
-            src="/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/src/assets/img/devpost.png"
-            alt="Devpost"
-            layout="fixed"
-            width={24}
-            height={24}
-          />
-          </a> */}
           <a className="lined-link" style={iconStyle} href={data.SiteSocialLinks.linkedin}>
             <Linkedin />
           </a>
@@ -55,7 +40,7 @@ const Footer = () => {
             ©
             <span>
               {" "}
-              Lacey Umamoto {new Date().getFullYear()}.
+              レイシー 馬本{new Date().getFullYear()}.
               {/* , Built with {` `}
               <a href="https://www.gatsbyjs.org">Gatsby</a>.{" "} */}
             </span>

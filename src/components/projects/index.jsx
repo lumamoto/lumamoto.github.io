@@ -1,5 +1,5 @@
-import React from "react"
-import Img from "gatsby-image"
+import React from "react";
+import { GatsbyImage } from "gatsby-plugin-image";
 import {
   Tag,
   ContainerLayout,
@@ -9,27 +9,30 @@ import {
   BigTitle,
   Text,
   ProjectGrid,
-} from "../common"
+} from "../common";
 
 const Projects = ({ data }) => {
-  const projects = data.allMarkdownRemark.edges
+  const projects = data.allMarkdownRemark.edges;
 
   return (
     <ContainerLayout>
       <BigTitle className="text-dark">Projects</BigTitle>
       <ProjectGrid>
         {projects.map(({ node }) => {
-          const title = node.frontmatter.title
+          const title = node.frontmatter.title;
           // const title = node.frontmatter.title || node.fields.slug
           return (
             <ProjectPost key={node.frontmatter.github}>
               <div className="media">
                 <div className="image-wrapper">
                   <a href={node.frontmatter.github}>
-                    <Img
-                      fluid={node.frontmatter.image.childImageSharp.fluid}
-                      // title="work title"
-                    />
+                    {node.frontmatter.image && (
+                      <GatsbyImage
+                        image={
+                          node.frontmatter.image.childImageSharp.gatsbyImageData
+                        }
+                      />
+                    )}
                   </a>
                 </div>
               </div>
@@ -59,11 +62,11 @@ const Projects = ({ data }) => {
                 </div>
               </div>
             </ProjectPost>
-          )
+          );
         })}
       </ProjectGrid>
     </ContainerLayout>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;

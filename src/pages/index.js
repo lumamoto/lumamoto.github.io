@@ -1,20 +1,11 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql } from 'gatsby'
 import Layout from "../components/layout"
 
 import About from "../components/about"
 import Projects from "../components/projects"
 
 const Index = ({ data }) => {
-  // const projectsRef = useRef(null);
-
-  // const scrollEffect = ( targetRef ) =>{
-  //   targetRef.current.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'start',
-  //   });
-  // }
-
   return (
     <Layout>
       <div style={{ height: "100vh", display: "table" }}>
@@ -24,7 +15,6 @@ const Index = ({ data }) => {
     </Layout>
   )
 }
-
 export default Index
 
 export const pageQuery = graphql`
@@ -36,7 +26,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/(projects)/" } }
-      sort: { fields: [frontmatter___order], order: ASC }
+      sort: { fields: [frontmatter___order], order: ASC } 
     ) {
       edges {
         node {
@@ -52,9 +42,7 @@ export const pageQuery = graphql`
             responsibilities
             image {
               childImageSharp {
-                fluid(maxWidth: 600, quality: 100) {
-                  ...GatsbyImageSharpFluid_noBase64
-                }
+                gatsbyImageData(layout: CONSTRAINED, quality: 100)
               }
             }
           }
