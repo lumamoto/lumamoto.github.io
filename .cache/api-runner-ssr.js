@@ -1,26 +1,26 @@
 var plugins = [{
       name: 'gatsby-plugin-react-helmet',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-react-helmet/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby-plugin-react-helmet/gatsby-ssr.js'),
       options: {"plugins":[]},
     },{
       name: 'gatsby-plugin-styled-components',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-styled-components/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby-plugin-styled-components/gatsby-ssr.js'),
       options: {"plugins":[],"displayName":true,"fileName":true,"minify":true,"namespace":"","transpileTemplateLiterals":true,"pure":false},
     },{
       name: 'gatsby-plugin-image',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-image/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby-plugin-image/gatsby-ssr.js'),
       options: {"plugins":[]},
     },{
       name: 'gatsby-plugin-manifest',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-manifest/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby-plugin-manifest/gatsby-ssr.js'),
       options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#000","theme_color":"#000","display":"minimal-ui","icon":"src/assets/img/portfolio-icon.png","legacy":true,"theme_color_in_head":true,"cache_busting_mode":"query","crossOrigin":"anonymous","include_favicon":true,"cacheDigest":"b16fd222656f1e4121ccc8d92d4c3124"},
     },{
       name: 'gatsby-plugin-offline',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby-plugin-offline/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby-plugin-offline/gatsby-ssr.js'),
       options: {"plugins":[]},
     },{
       name: 'partytown',
-      plugin: require('/Users/laceyumamoto/Projects/Personal/gatsby-portfolio/node_modules/gatsby/dist/internal-plugins/partytown/gatsby-ssr.js'),
+      plugin: require('/Users/laceyumamoto/Projects/Personal/lumamoto.github.io/node_modules/gatsby/dist/internal-plugins/partytown/gatsby-ssr.js'),
       options: {"plugins":[]},
     }]
 /* global plugins */

@@ -1,3 +1,6 @@
 node_modules
 .cache
 public
+workbox-v4.3.1
+page-data
+offline-plugin-app-shell-fallback
