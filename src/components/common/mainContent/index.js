@@ -7,7 +7,7 @@ export const MainContent = styled.div``
 // }
 
 export const BigTitle = styled.h1`
-  margin: 2rem 0 3rem 0;
+  margin: 3rem 0 3rem 0;
   text-align: center;
   font-size: 3rem;
   font-family: "GT-Walsheim-Pro-Bold";

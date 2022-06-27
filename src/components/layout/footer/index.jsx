@@ -40,7 +40,7 @@ const Footer = () => {
             ©
             <span>
               {" "}
-              レイシー 馬本{new Date().getFullYear()}.
+              レイシー 馬本 {new Date().getFullYear()}.
               {/* , Built with {` `}
               <a href="https://www.gatsbyjs.org">Gatsby</a>.{" "} */}
             </span>

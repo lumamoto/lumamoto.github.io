@@ -302,7 +302,7 @@ const MainContent = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].di
 
 const BigTitle = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].h1.withConfig({
   displayName: "mainContent__BigTitle"
-})(["margin:2rem 0 3rem 0;text-align:center;font-size:3rem;font-family:\"GT-Walsheim-Pro-Bold\";@media(max-width:", "){font-size:2rem;}"], _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].breakpointPhone);
+})(["margin:3rem 0 3rem 0;text-align:center;font-size:3rem;font-family:\"GT-Walsheim-Pro-Bold\";@media(max-width:", "){font-size:2rem;}"], _data_variables__WEBPACK_IMPORTED_MODULE_0__["default"].breakpointPhone);
 
 /***/ }),
 
@@ -474,7 +474,7 @@ const Footer = () => {
     href: (_data_data__WEBPACK_IMPORTED_MODULE_1___default().SiteSocialLinks.linkedin)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_feather__WEBPACK_IMPORTED_MODULE_7__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_style__WEBPACK_IMPORTED_MODULE_3__.CopyRight, {
     className: "text-dark"
-  }, "\xA9", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " ", "\u30EC\u30A4\u30B7\u30FC \u99AC\u672C", new Date().getFullYear(), ".")))));
+  }, "\xA9", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " ", "\u30EC\u30A4\u30B7\u30FC \u99AC\u672C ", new Date().getFullYear(), ".")))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
