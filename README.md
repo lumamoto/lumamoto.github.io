@@ -4,7 +4,7 @@
     </a>
     <h3 align="center">lumamoto.github.io</h3>
     <p align="center">
-        A portfolio to showcase myself and my favorite projects.
+        Showcases my favorite projects.
         <br>
         Built with <a href="https://www.gatsbyjs.com/">Gatsby</a> and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.
         <br><br>
