@@ -25,7 +25,6 @@ export const SubTitle = styled.h3`
   font-size: 2rem;
   font-family: "GT-Walsheim-Pro-Bold";
 `
-// text-decoration: underline;
 
 export const Text = styled.p`
   font-size: .98rem;
@@ -86,7 +85,6 @@ export const ProjectPost = styled.article`
     }
   }
 `
-// rotate(8deg)
 
 export const Category = styled.span`
   font-family: "GT-Walsheim-Pro-Bold";

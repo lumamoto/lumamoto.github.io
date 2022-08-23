@@ -33,6 +33,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-feather": "^2.0.10",
+    "react-hash-link": "^1.0.1",
     "react-helmet": "^6.1.0",
     "sanitize-html": "^2.7.0",
     "styled-components": "^5.3.5",

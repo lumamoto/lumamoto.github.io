@@ -156,5 +156,3 @@ export const GlobalStyle = createGlobalStyle`
   width: 30vw;
 }
 `
-// padding-top: .5em;
-// padding-bottom: .25em;

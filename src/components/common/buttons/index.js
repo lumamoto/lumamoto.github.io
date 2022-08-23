@@ -38,7 +38,6 @@ export const ButtonDefault = styled.a`
     left: -4px;
   }
 `;
-// margin: 10% 0%;
 
 export const ReadMore = styled.span`
   color: #000;

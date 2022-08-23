@@ -23,7 +23,6 @@ const portfolioProject = ({data, pageContext, location}) => {
                 </Title>
                 <SmallText> 
                   <Calendar className="align-middle text-primary" width="18" height="18" /> 
-                  {/* <span className="align-middle"> date published : {project.frontmatter.date} </span> */}
                 </SmallText>
               </header>
               

@@ -20,7 +20,6 @@ const Projects = ({ data }) => {
       <ProjectGrid>
         {projects.map(({ node }) => {
           const title = node.frontmatter.title;
-          // const title = node.frontmatter.title || node.fields.slug
           return (
             <ProjectPost key={node.frontmatter.github}>
               <div className="media">
@@ -41,7 +40,6 @@ const Projects = ({ data }) => {
                   <Category>{node.frontmatter.category}</Category>
                   <Title className="text-primary">
                     <a
-                      // className="text-primary"
                       className="text-primary lined-link"
                       style={{ boxShadow: `none` }}
                       href={node.frontmatter.github}
