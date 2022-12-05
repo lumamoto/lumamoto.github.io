@@ -37,7 +37,7 @@
     "react-helmet": "^6.1.0",
     "sanitize-html": "^2.7.2",
     "styled-components": "^5.3.5",
-    "ws": "^8.9.0"
+    "ws": "^8.11.0"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",
